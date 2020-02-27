@@ -7,10 +7,11 @@ namespace VideoRentalStore.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter customer's name.")]
         public string Name { get; set; }
 
         [Display(Name = "Date of Birth")]
+        [MinAgeOfMember]
         public DateTime? BirthDate { get; set; }
 
         public bool IsSubscribedToNewsletter { get; set; }
