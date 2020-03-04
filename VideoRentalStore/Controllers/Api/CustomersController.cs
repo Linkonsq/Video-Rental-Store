@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using VideoRentalStore.Models;
@@ -16,9 +16,10 @@ namespace VideoRentalStore.Controllers.Api
         }
 
         // Get /api/customers
-        public IEnumerable<Customer> GetCustomers()
+        public IHttpActionResult GetCustomers()
         {
-            return _context.Customers.ToList();
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+            return Ok(customers);
         }
 
         // Get /api/customers/1
