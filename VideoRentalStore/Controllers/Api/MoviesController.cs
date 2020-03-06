@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using VideoRentalStore.Models;
@@ -16,9 +17,18 @@ namespace VideoRentalStore.Controllers.Api
         }
 
         // GET /api/movies
-        public IEnumerable<Movie> GetMovies()
+        public IEnumerable<Movie> GetMovies(string query = null)
         {
-            return _context.Movies.ToList();
+            var moviesQuery = _context.Movies
+                .Include(m => m.Genre)
+                .Where(m => m.NumberAvailable > 0);
+
+            if (!String.IsNullOrWhiteSpace(query))
+            {
+                moviesQuery = moviesQuery.Where(m => m.Name.Contains(query));
+            }
+
+            return moviesQuery.ToList();
         }
 
         // Get /api/movies/1

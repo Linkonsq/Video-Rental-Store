@@ -51,7 +51,7 @@ namespace VideoRentalStore.Controllers
         }
 
         //
-        // GET: /Manage/Index
+        // GET: /Manage/New
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
